@@ -2,15 +2,24 @@ version: "3.8"
 
 services:
   postgresdb:
-    image: "postgres:16-alpine"
+    image: postgres:16-alpine
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
     volumes:
       - pg_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: keycloak/keycloak:23.0
+    command: ["start-dev"]
+    ports:
+      - 8080:8080
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
 
 volumes:
   pg_data:
