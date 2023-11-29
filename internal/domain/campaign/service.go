@@ -36,7 +36,7 @@ func (s *ServiceImp) GetBy(id string) (*contract.CampaignResponse, error) {
 	campaign, err := s.Repository.GetBy(id)
 
 	if err != nil {
-		return nil, internalerrors.ErrInternal
+		return nil, internalerrors.ProcessErrorToReturn(err)
 	}
 
 	return &contract.CampaignResponse{
@@ -51,7 +51,7 @@ func (s *ServiceImp) GetBy(id string) (*contract.CampaignResponse, error) {
 func (s *ServiceImp) Cancel(id string) error {
 	campaign, err := s.Repository.GetBy(id)
 	if err != nil {
-		return internalerrors.ErrInternal
+		return internalerrors.ProcessErrorToReturn(err)
 	}
 
 	if campaign.Status != Pending {
@@ -71,7 +71,7 @@ func (s *ServiceImp) Cancel(id string) error {
 func (s *ServiceImp) Delete(id string) error {
 	campaign, err := s.Repository.GetBy(id)
 	if err != nil {
-		return internalerrors.ErrInternal
+		return internalerrors.ProcessErrorToReturn(err)
 	}
 
 	if campaign.Status != Pending {
