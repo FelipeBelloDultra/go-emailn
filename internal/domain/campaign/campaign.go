@@ -31,6 +31,10 @@ type Campaign struct {
 	Status    string    `gorm:"size:20"`
 }
 
+func (c *Campaign) Cancel() {
+	c.Status = Canceled
+}
+
 func NewCampaign(name string, content string, emails []string) (*Campaign, error) {
 	contacts := make([]Contact, len(emails))
 	for index, value := range emails {
