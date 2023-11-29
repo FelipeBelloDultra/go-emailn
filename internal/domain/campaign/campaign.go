@@ -35,6 +35,10 @@ func (c *Campaign) Cancel() {
 	c.Status = Canceled
 }
 
+func (c *Campaign) Delete() {
+	c.Status = Deleted
+}
+
 func NewCampaign(name string, content string, emails []string) (*Campaign, error) {
 	contacts := make([]Contact, len(emails))
 	for index, value := range emails {
