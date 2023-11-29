@@ -11,3 +11,6 @@ services:
       - POSTGRES_PASSWORD=docker
     volumes:
       - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
