@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	internalmock "github.com/FelipeBelloDultra/emailn/internal/test/mock"
+	internalmock "github.com/FelipeBelloDultra/emailn/internal/test/internal-mock"
 
 	"github.com/FelipeBelloDultra/emailn/internal/contract"
 	"github.com/stretchr/testify/assert"

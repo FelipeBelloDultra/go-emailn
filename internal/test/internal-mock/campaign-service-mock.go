@@ -1,4 +1,4 @@
-package mock
+package internalmock
 
 import (
 	"github.com/FelipeBelloDultra/emailn/internal/contract"

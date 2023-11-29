@@ -8,7 +8,7 @@ import (
 
 	"github.com/FelipeBelloDultra/emailn/internal/contract"
 	"github.com/FelipeBelloDultra/emailn/internal/domain/campaign"
-	internalmock "github.com/FelipeBelloDultra/emailn/internal/test/mock"
+	internalmock "github.com/FelipeBelloDultra/emailn/internal/test/internal-mock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
