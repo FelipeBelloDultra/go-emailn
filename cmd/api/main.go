@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/FelipeBelloDultra/emailn/internal/domain/campaign"
@@ -8,9 +9,15 @@ import (
 	"github.com/FelipeBelloDultra/emailn/internal/infra/database"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env")
+	}
+
 	r := chi.NewRouter()
 
 	r.Use(middleware.RequestID)
