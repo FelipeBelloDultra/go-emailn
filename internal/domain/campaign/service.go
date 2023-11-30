@@ -16,6 +16,7 @@ type Service interface {
 	Create(newcampaign contract.NewCampaign) (string, error)
 	GetBy(id string) (*contract.CampaignResponse, error)
 	Delete(id string) error
+	Start(id string) error
 }
 
 func (s *ServiceImp) Create(newCampaign contract.NewCampaign) (string, error) {

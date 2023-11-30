@@ -7,6 +7,7 @@ import (
 	"github.com/FelipeBelloDultra/emailn/internal/domain/campaign"
 	"github.com/FelipeBelloDultra/emailn/internal/endpoints"
 	"github.com/FelipeBelloDultra/emailn/internal/infra/database"
+	"github.com/FelipeBelloDultra/emailn/internal/infra/mail"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
@@ -31,6 +32,7 @@ func main() {
 		Repository: &database.CampaignRepository{
 			Db: db,
 		},
+		SendMail: mail.SendMail,
 	}
 	handler := endpoints.Handler{
 		CampaignService: &campaignService,
@@ -45,6 +47,7 @@ func main() {
 		r.Post("/", endpoints.HandlerError(handler.CampaignPost))
 		r.Get("/{id}", endpoints.HandlerError(handler.CampaignGetById))
 		r.Delete("/delete/{id}", endpoints.HandlerError(handler.CampaignDelete))
+		r.Patch("/start/{id}", endpoints.HandlerError(handler.CampaignStart))
 	})
 
 	http.ListenAndServe(":3000", r)
