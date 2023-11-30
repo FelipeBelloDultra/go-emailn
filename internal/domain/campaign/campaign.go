@@ -44,6 +44,14 @@ func (c *Campaign) Done() {
 	c.Status = Done
 }
 
+func (c *Campaign) Fail() {
+	c.Status = Fail
+}
+
+func (c *Campaign) Started() {
+	c.Status = Started
+}
+
 func NewCampaign(name string, content string, emails []string, createdBy string) (*Campaign, error) {
 	contacts := make([]Contact, len(emails))
 	for index, value := range emails {
