@@ -23,9 +23,9 @@ const (
 )
 
 type Campaign struct {
-	ID        string    `validate:"required" gorm:"size:50;not null"`
-	Name      string    `validate:"min=5,max=24" gorm:"size:100;not null"`
-	UpdatedOn time.Time `validate:"required"`
+	ID        string `validate:"required" gorm:"size:50;not null"`
+	Name      string `validate:"min=5,max=24" gorm:"size:100;not null"`
+	UpdatedOn time.Time
 	CreatedOn time.Time `validate:"required" gorm:"not null"`
 	Content   string    `validate:"min=5,max=1024" gorm:"size:1024;not null"`
 	Contacts  []Contact `validate:"min=1,dive"`

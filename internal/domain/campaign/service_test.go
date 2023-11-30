@@ -203,6 +203,7 @@ func Test_Start_ShouldErrorWhenSendEmailFail(t *testing.T) {
 	assert := assert.New(t)
 	setUp()
 	repositoryMock.On("GetBy", mock.Anything).Return(campaignPending, nil)
+	repositoryMock.On("Update", mock.Anything).Return(internalerrors.ErrInternal)
 	service.SendMail = func(campaign *campaign.Campaign) error {
 		return errors.New("error to send email")
 	}
@@ -220,6 +221,7 @@ func Test_Start_WhenSendEmailMustChangeStatusToDone(t *testing.T) {
 		return campaignPending.ID == campaignToUpdate.ID &&
 			campaignToUpdate.Status == campaign.Done
 	})).Return(nil)
+	repositoryMock.On("Update", mock.Anything).Return(internalerrors.ErrInternal)
 	service.SendMail = func(campaign *campaign.Campaign) error {
 		return nil
 	}

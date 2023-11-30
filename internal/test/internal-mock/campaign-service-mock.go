@@ -2,6 +2,7 @@ package internalmock
 
 import (
 	"github.com/FelipeBelloDultra/emailn/internal/contract"
+	"github.com/FelipeBelloDultra/emailn/internal/domain/campaign"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -30,4 +31,8 @@ func (r *CampaignServiceMock) Delete(id string) error {
 func (r *CampaignServiceMock) Start(id string) error {
 	args := r.Called(id)
 	return args.Error(0)
+}
+
+func (r *CampaignServiceMock) SendEmailAndUpdateStatus(campaign *campaign.Campaign) {
+	r.Called(campaign)
 }

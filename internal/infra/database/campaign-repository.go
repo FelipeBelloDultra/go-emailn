@@ -40,3 +40,14 @@ func (c *CampaignRepository) GetBy(id string) (*campaign.Campaign, error) {
 
 	return &campaign, tx.Error
 }
+
+func (c *CampaignRepository) GetCampaignsToBeSent() ([]campaign.Campaign, error) {
+	var campaigns []campaign.Campaign
+	tx := c.Db.Preload("Contacts").Find(
+		&campaigns,
+		"status = ? and date_part('minute', now()::timestamp - updated_on::timestamp) >= ?",
+		campaign.Started,
+		1,
+	)
+	return campaigns, tx.Error
+}

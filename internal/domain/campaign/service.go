@@ -17,6 +17,7 @@ type Service interface {
 	GetBy(id string) (*contract.CampaignResponse, error)
 	Delete(id string) error
 	Start(id string) error
+	SendEmailAndUpdateStatus(campaign *Campaign)
 }
 
 func (s *ServiceImp) Create(newCampaign contract.NewCampaign) (string, error) {
@@ -70,6 +71,17 @@ func (s *ServiceImp) Delete(id string) error {
 	return nil
 }
 
+func (s *ServiceImp) SendEmailAndUpdateStatus(campaign *Campaign) {
+	err := s.SendMail(campaign)
+
+	if err != nil {
+		campaign.Done()
+	} else {
+		campaign.Fail()
+	}
+	s.Repository.Update(campaign)
+}
+
 func (s *ServiceImp) Start(id string) error {
 	campaign, err := s.Repository.GetBy(id)
 	if err != nil {
@@ -80,16 +92,7 @@ func (s *ServiceImp) Start(id string) error {
 		return errors.New("Campaign status invalid")
 	}
 
-	go func() {
-		err := s.SendMail(campaign)
-
-		if err != nil {
-			campaign.Done()
-		} else {
-			campaign.Fail()
-		}
-		s.Repository.Update(campaign)
-	}()
+	go s.SendEmailAndUpdateStatus(campaign)
 
 	campaign.Started()
 
